@@ -11,14 +11,17 @@ public class HexTile : MonoBehaviour {
         [Direction.TopLeft] = null
     };
     public bool occupied = false;
+    public Color targetColor;
+
+    private Renderer rend;
 
     // Start is called before the first frame update
     void Start() {
-
+        rend = GetComponent<Renderer>();
     }
 
     // Update is called once per frame
     void Update() {
-
+        rend.material.color = Color.Lerp(rend.material.color, targetColor, 8f * Time.deltaTime);
     }
 }

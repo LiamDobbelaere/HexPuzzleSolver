@@ -116,7 +116,7 @@ public class HexPuzzleSolver : MonoBehaviour {
         },
         new PieceModel {
             name = "Purple",
-            color = new Color(0.75f, 0.5f, 0.75f),
+            color = new Color(0.75f, 0.25f, 0.75f),
             orientations = new Direction[][] {
                 new Direction[] {
                     Direction.TopRight, Direction.BottomRight
@@ -236,8 +236,8 @@ public class HexPuzzleSolver : MonoBehaviour {
             }
         },
         new PieceModel {
-            name = "Purple",
-            color = new Color(0.75f, 0.75f, 0.25f),
+            name = "Purple2",
+            color = new Color(0.75f, 0.5f, 0.75f),
             orientations = new Direction[][] {
                 new Direction[] {
                     Direction.Right, Direction.BottomLeft, Direction.Right
@@ -318,6 +318,7 @@ public class HexPuzzleSolver : MonoBehaviour {
         if (tile.occupied) {
             return false;
         }
+
         foreach (Direction dir in pieceOrientation) {
             current = current.neighbours[dir];
             if (current == null || current.occupied) {
@@ -330,11 +331,11 @@ public class HexPuzzleSolver : MonoBehaviour {
 
     void Paint(HexTile tile, PieceModel piece, Direction[] pieceOrientation) {
         HexTile current = tile;
-        current.GetComponent<Renderer>().material.color = piece.color;
+        current.targetColor = piece.color;
         current.occupied = true;
         foreach (Direction dir in pieceOrientation) {
             current = current.neighbours[dir];
-            current.GetComponent<Renderer>().material.color = piece.color;
+            current.targetColor = piece.color;
             current.occupied = true;
         }
     }
@@ -351,7 +352,7 @@ public class HexPuzzleSolver : MonoBehaviour {
 
     void Regenerate() {
         foreach (HexTile t in tiles) {
-            t.GetComponent<Renderer>().material.color = Color.black;
+            t.targetColor = Color.black;
             t.occupied = false;
         }
 
